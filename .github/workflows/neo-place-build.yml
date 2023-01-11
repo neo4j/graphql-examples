@@ -1,0 +1,33 @@
+name: "neo/place Build"
+
+on:
+  workflow_dispatch:
+
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "neo-place/**"
+
+jobs:
+  build-console-frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
+      - name: neo/place client build
+        env:
+          PULL_REQUEST_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          yarn
+          yarn build
+          echo "$PULL_REQUEST_NUMBER" > ./dist/prnumber
+        working-directory: packages/console-frontend
+      - name: Archive console frontend build
+        uses: actions/upload-artifact@v3
+        with:
+          name: consolefrontend
+          path: packages/console-frontend/dist
