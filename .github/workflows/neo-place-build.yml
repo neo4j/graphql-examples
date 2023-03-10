@@ -26,8 +26,8 @@ jobs:
           npm run build
           echo "$PULL_REQUEST_NUMBER" > ./dist/prnumber
         working-directory: packages/console-frontend
-      - name: Archive console frontend build
+      - name: Archive neo-place client build
         uses: actions/upload-artifact@v3
         with:
-          name: consolefrontend
-          path: packages/console-frontend/dist
+          name: neo-place-client
+          path: neo-place/client/dist
