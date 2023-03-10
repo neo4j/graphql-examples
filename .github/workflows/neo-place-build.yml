@@ -22,8 +22,8 @@ jobs:
         env:
           PULL_REQUEST_NUMBER: ${{ github.event.pull_request.number }}
         run: |
-          yarn
-          yarn build
+          npm install
+          npm run build
           echo "$PULL_REQUEST_NUMBER" > ./dist/prnumber
         working-directory: packages/console-frontend
       - name: Archive console frontend build
