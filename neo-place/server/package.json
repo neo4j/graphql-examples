@@ -4,7 +4,7 @@
   "private": true,
   "description": "Subscriptions example server",
   "engines": {
-    "node": "16.x"
+    "node": "18.x"
   },
   "scripts": {
     "start": "nodemon --watch \"src/**/*.ts\" --exec \"ts-node\" ./src/server.ts",
