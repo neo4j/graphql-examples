@@ -1,6 +1,7 @@
 import {
   createClient,
-  defaultExchanges,
+  cacheExchange,
+  fetchExchange,
   subscriptionExchange,
   gql,
   Client,
@@ -34,13 +35,17 @@ export class GraphQLServerApi {
     this.client = createClient({
       url: this.url,
       exchanges: [
-        ...defaultExchanges,
+        cacheExchange,
+        fetchExchange,
         subscriptionExchange({
-          forwardSubscription: (operation) => ({
-            subscribe: (sink) => ({
-              unsubscribe: this.wsClient.subscribe(operation, sink),
-            }),
-          }),
+          forwardSubscription: (request) => {
+            const input = { ...request, query: request.query || "" };
+            return {
+              subscribe: (sink) => ({
+                unsubscribe: this.wsClient.subscribe(input, sink),
+              }),
+            };
+          },
         }),
       ],
       fetchOptions: {

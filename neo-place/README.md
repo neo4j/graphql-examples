@@ -25,7 +25,7 @@ NEO_PLACE_DB_PASSWORD=neo4j
 ```
 
 2. Run `npm install`
-3. Run `npm run start:dev`
+3. Run `npm run start`
 4. Go to http://localhost:4000/
 
 ### Using AMQP broker for messages (optional)
